@@ -1,0 +1,231 @@
+{
+  "name": "Interview Result Notification System",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bcb7b56c-293d-40ee-8547-cea3fa0cd255",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xoklwpgHyiuHkqZ7K_udVdNEJSjdROdK-FrrdUnCPyk",
+          "mode": "list",
+          "cachedResultName": "Interview Result",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xoklwpgHyiuHkqZ7K_udVdNEJSjdROdK-FrrdUnCPyk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1705085435,
+          "mode": "list",
+          "cachedResultName": "Interview Responses",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xoklwpgHyiuHkqZ7K_udVdNEJSjdROdK-FrrdUnCPyk/edit#gid=1705085435"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f8b103e5-aaa9-4c95-96ab-860f758ec93a",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7BuxrGd5Ru4fx1vf",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        432,
+        64
+      ],
+      "id": "2c1f07ee-6023-4cbb-9df0-74d5dacb7f0b",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "abb3f77f-6dcf-44c1-8268-87e4cba40f38",
+              "leftValue": "={{ $json['Interview Score out of 100 '] }}",
+              "rightValue": 75,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "14471d1a-1d66-4653-90cc-052f3e5b42cd",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "0a6516e0-d120-497b-a1cf-acfaf5a04e33",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Congratulations! You are selected ",
+        "message": "=Hi, {{ $json['Name '] }}  Congratulations!  You have been selected for {{$json[\"Position\"]}} role.  We will contact you soon.  HR Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        -192
+      ],
+      "id": "3a81c639-6b35-4cc7-b4d1-bc3816090b65",
+      "name": "Send a message",
+      "webhookId": "67bd3410-2605-4454-9130-4a59a48c5122",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MCJn2RmHqwRYxG7y",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Thank You for Applying",
+        "message": "=Hi, {{ $json['Name '] }} Thank you for applying for {{$json[\"Position\"]}}.  We appreciate your effort, but you were not selected this time.  Best wishes for your future.  HR Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        0
+      ],
+      "id": "86701a99-5bd8-4b53-bf64-b3bdb0c5966b",
+      "name": "Send a message1",
+      "webhookId": "ccea1466-a3c8-4d4c-a7a0-c1747bab7453",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MCJn2RmHqwRYxG7y",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "deb80266-1ab7-4c3d-bdf6-457c516411b3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "071862c5558a221895d0e22dff5e16c414cbff6eecd9b882d4fcf66f2aadf2aa"
+  },
+  "id": "ZOG1ryZmDd4324EE",
+  "tags": []
+}
