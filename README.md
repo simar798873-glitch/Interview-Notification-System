@@ -94,7 +94,7 @@ This system helps HR teams by:
 ---
 
 ## 👩‍💻 Author
-**Harmanjot Kaur**
+**Simarjeet Kaur**
 
 ---
 
