@@ -1,127 +1,101 @@
-{
-  "name": "HR Interview Automation",
-  "nodes": [
-    {
-      "parameters": {},
-      "id": "1",
-      "name": "Manual Trigger",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [200, 300]
-    },
-    {
-      "parameters": {
-        "operation": "read",
-        "sheetId": "YOUR_SHEET_ID",
-        "range": "Sheet1!A:D"
-      },
-      "id": "2",
-      "name": "Get Rows",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 1,
-      "position": [400, 300]
-    },
-    {
-      "parameters": {},
-      "id": "3",
-      "name": "Loop Over Items",
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 1,
-      "position": [600, 300]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "number": [
-            {
-              "value1": "={{$json[\"Score\"]}}",
-              "operation": "largerEqual",
-              "value2": 60
-            }
-          ]
-        }
-      },
-      "id": "4",
-      "name": "IF (Score Check)",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [800, 300]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "send",
-        "to": "={{$json[\"Email\"]}}",
-        "subject": "Congratulations!",
-        "message": "You are selected for the next round."
-      },
-      "id": "5",
-      "name": "Send Selected Email",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [1000, 200]
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "sheetId": "YOUR_SHEET_ID",
-        "range": "Sheet1!A:E"
-      },
-      "id": "6",
-      "name": "Append Selected",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 1,
-      "position": [1200, 200]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "send",
-        "to": "={{$json[\"Email\"]}}",
-        "subject": "Interview Update",
-        "message": "Thank you for applying. You were not selected."
-      },
-      "id": "7",
-      "name": "Send Rejection Email",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [1000, 400]
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "sheetId": "YOUR_SHEET_ID",
-        "range": "Sheet1!A:E"
-      },
-      "id": "8",
-      "name": "Append Rejected",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 1,
-      "position": [1200, 400]
-    }
-  ],
-  "connections": {
-    "Manual Trigger": {
-      "main": [[{ "node": "Get Rows", "type": "main", "index": 0 }]]
-    },
-    "Get Rows": {
-      "main": [[{ "node": "Loop Over Items", "type": "main", "index": 0 }]]
-    },
-    "Loop Over Items": {
-      "main": [[{ "node": "IF (Score Check)", "type": "main", "index": 0 }]]
-    },
-    "IF (Score Check)": {
-      "main": [
-        [{ "node": "Send Selected Email", "type": "main", "index": 0 }],
-        [{ "node": "Send Rejection Email", "type": "main", "index": 0 }]
-      ]
-    },
-    "Send Selected Email": {
-      "main": [[{ "node": "Append Selected", "type": "main", "index": 0 }]]
-    },
-    "Send Rejection Email": {
-      "main": [[{ "node": "Append Rejected", "type": "main", "index": 0 }]]
-    }
-  }
-}# Interview-Notification-System
-"Automated system to notify candidates and log interview results using n8n"
+# 🤖 AI-Powered HR Interview Notification System
+
+## 📌 Overview
+This project is an automated HR workflow built using **n8n** that streamlines the interview evaluation process.  
+It reads candidate data, evaluates performance based on predefined conditions, sends automated emails, and updates records — all without manual intervention.
+
+---
+
+## 🚀 Features
+- 📊 Fetch candidate data from Google Sheets  
+- 🔄 Process each candidate automatically  
+- 🧠 Evaluate interview scores using conditions  
+- 📧 Send automated emails (Selected / Not Selected)  
+- 📝 Update results back to Google Sheets  
+- ⚡ Fully automated workflow  
+
+---
+
+## 🛠️ Technologies Used
+- **n8n** – Workflow Automation  
+- **Google Sheets** – Data Storage  
+- **Gmail API** – Email Notifications  
+- **Power BI** – Data Visualization Dashboard  
+
+---
+
+## ⚙️ Workflow Explanation
+
+1. **Trigger**
+   - Starts the workflow manually or automatically  
+
+2. **Get Data**
+   - Fetches candidate details from Google Sheets  
+
+3. **Loop Over Items**
+   - Processes each candidate one by one  
+
+4. **IF Condition**
+   - Checks interview score  
+   - If score ≥ 60 → Selected  
+   - Else → Not Selected  
+
+5. **Send Email**
+   - Sends email based on result  
+
+6. **Update Sheet**
+   - Appends updated status in Google Sheets  
+
+---
+
+## 📊 Dashboard (Power BI)
+The dashboard provides:
+- Total number of candidates  
+- Selected vs Not Selected ratio  
+- Average interview score  
+- Candidate-wise details  
+- Position-wise analysis  
+
+---
+
+## 💡 Use Case in HR
+This system helps HR teams by:
+- Reducing manual work  
+- Providing instant candidate responses  
+- Improving efficiency and accuracy  
+- Enabling data-driven hiring decisions  
+
+---
+
+## 🔮 Future Enhancements
+- AI-based resume screening  
+- Chatbot integration for HR queries  
+- Automated interview scheduling  
+- Predictive hiring analytics  
+
+---
+
+## 📷 Screenshots
+### n8n Workflow
+![Workflow](./images/workflow.png)
+
+### Power BI Dashboard
+![Dashboard](./images/dashboard.png)
+
+---
+
+## 📂 How to Use
+1. Import the workflow JSON into n8n  
+2. Connect your Google Sheets & Gmail  
+3. Update sheet ID and credentials  
+4. Run the workflow  
+
+---
+
+## 👩‍💻 Author
+**Harmanjot Kaur**
+
+---
+
+## ⭐ Conclusion
+This project demonstrates how automation can transform traditional HR processes into a faster, smarter, and more efficient system.
