@@ -77,10 +77,10 @@ This system helps HR teams by:
 
 ## 📷 Screenshots
 ### n8n Workflow
-![Workflow](./images/workflow.png)
+WhatsApp Image 2026-03-31 at 8.53.44 PM........jpeg
 
 ### Power BI Dashboard
-![Dashboard](./images/dashboard.png)
+WhatsApp Image 2026-04-01 at 9.39.47 AM#.jpeg
 
 ---
 
