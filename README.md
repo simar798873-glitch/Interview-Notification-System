@@ -98,5 +98,5 @@ This system helps HR teams by:
 
 ---
 
-## ⭐ Conclusion
+## Conclusion
 This project demonstrates how automation can transform traditional HR processes into a faster, smarter, and more efficient system.
