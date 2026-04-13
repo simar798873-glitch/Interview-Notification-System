@@ -1,22 +1,22 @@
-# 🤖 AI-Powered HR Interview Notification System
+# AI-Powered HR Interview Notification System
 
-## 📌 Overview
+## Overview
 This project is an automated HR workflow built using **n8n** that streamlines the interview evaluation process.  
 It reads candidate data, evaluates performance based on predefined conditions, sends automated emails, and updates records — all without manual intervention.
 
 ---
 
-## 🚀 Features
-- 📊 Fetch candidate data from Google Sheets  
-- 🔄 Process each candidate automatically  
-- 🧠 Evaluate interview scores using conditions  
-- 📧 Send automated emails (Selected / Not Selected)  
-- 📝 Update results back to Google Sheets  
-- ⚡ Fully automated workflow  
+## Features
+- Fetch candidate data from Google Sheets  
+- Process each candidate automatically  
+- Evaluate interview scores using conditions  
+- Send automated emails (Selected / Not Selected)  
+- Update results back to Google Sheets  
+- Fully automated workflow  
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 - **n8n** – Workflow Automation  
 - **Google Sheets** – Data Storage  
 - **Gmail API** – Email Notifications  
@@ -24,7 +24,7 @@ It reads candidate data, evaluates performance based on predefined conditions, s
 
 ---
 
-## ⚙️ Workflow Explanation
+## Workflow Explanation
 
 1. **Trigger**
    - Starts the workflow manually or automatically  
@@ -48,7 +48,7 @@ It reads candidate data, evaluates performance based on predefined conditions, s
 
 ---
 
-## 📊 Dashboard (Power BI)
+## Dashboard (Power BI)
 The dashboard provides:
 - Total number of candidates  
 - Selected vs Not Selected ratio  
@@ -58,7 +58,7 @@ The dashboard provides:
 
 ---
 
-## 💡 Use Case in HR
+## Use Case in HR
 This system helps HR teams by:
 - Reducing manual work  
 - Providing instant candidate responses  
@@ -67,7 +67,7 @@ This system helps HR teams by:
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 - AI-based resume screening  
 - Chatbot integration for HR queries  
 - Automated interview scheduling  
@@ -75,7 +75,7 @@ This system helps HR teams by:
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### 🔹 n8n Workflow
 ![Workflow](workflow.png.jpeg)
@@ -85,7 +85,7 @@ This system helps HR teams by:
 
 ---
 
-## 📂 How to Use
+## How to Use
 1. Import the workflow JSON into n8n  
 2. Connect your Google Sheets & Gmail  
 3. Update sheet ID and credentials  
@@ -93,7 +93,7 @@ This system helps HR teams by:
 
 ---
 
-## 👩‍💻 Author
+## Author
 **Simarjeet Kaur**
 
 ---
